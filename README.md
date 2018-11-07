@@ -35,3 +35,7 @@ plugins.
 1. Se mais dependências forem necessárias para a instalação do plugin, atualize o Dockerfile com as novas dependências.
 1. Execute o `docker-compose up`.
 1. Aguarde até que os serviços concluam a inicialização.
+
+## Imagem pronta 
+
+- Para pegar a imagem já pronta com os plugins use ( docker pull leonardobites/redmine-tools )
