@@ -14,7 +14,8 @@ function install_from_github() {
 
 cd /redmine/plugins
 
-install_from_github twinslash/redmine_omniauth_google yes
+install_from_github Admin-Itecbrazil/redmine_agile yes
+install_from_github phlegx/redmine_gitlab_hook yes
 
 install_from_github dergachev/redmine_git_remote
 mkdir -p redmine_git_remote/repos
