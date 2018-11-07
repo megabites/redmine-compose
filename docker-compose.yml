@@ -4,6 +4,7 @@ services:
 
   nginx-proxy:
     image: jwilder/nginx-proxy
+    privileged: true
     ports:
       - "81:80"
     environment:
@@ -15,6 +16,7 @@ services:
 
   redmine:
     image: redmine
+    privileged: true
     ports:
       - 80:3000
     environment:
@@ -22,11 +24,11 @@ services:
       REDMINE_DB_PASSWORD: secret
       VIRTUAL_HOST: redmine
     volumes:
-      - plugins:/usr/src/redmine/plugins
-      - files:/usr/src/redmine/files
-      - ./wait-for-plugins.sh:/wait-for-plugins:ro
+      - ./volume-redmine/plugins:/usr/src/redmine/plugins
+      - ./volume-redmine/files:/usr/src/redmine/files
+      - ./wait-for-plugins.sh:/wait-for-plugins:rw
       - ./configuration.yml:/usr/src/redmine/config/configuration.yml
-      - /var/log/redmine/:/usr/src/redmine/log/
+      - ./volume-redmine/var/log/redmine/:/usr/src/redmine/log/
     extra_hosts:
       - "smtpserver:${SMTP_SERVER}"
     entrypoint: /wait-for-plugins
