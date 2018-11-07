@@ -12,7 +12,7 @@ function install_from_github() {
 	)
 }
 
-cd /redmine/plugins
+cd /redmine/plugins/
 
 install_from_github Admin-Itecbrazil/redmine_agile 
 install_from_github phlegx/redmine_gitlab_hook 

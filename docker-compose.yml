@@ -2,18 +2,6 @@ version: '2'
 
 services:
 
-  nginx-proxy:
-    image: jwilder/nginx-proxy
-    privileged: true
-    ports:
-      - "81:80"
-    environment:
-      ENABLE_IPV6: "true"
-      DEFAULT_HOST: redmine
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ./proxy.conf:/etc/nginx/proxy.conf:ro
-
   redmine:
     image: redmine
     privileged: true
@@ -24,11 +12,11 @@ services:
       REDMINE_DB_PASSWORD: secret
       VIRTUAL_HOST: redmine
     volumes:
-      - ./volume-redmine/plugins:/usr/src/redmine/plugins
-      - ./volume-redmine/files:/usr/src/redmine/files
+      - plugins:/usr/src/redmine/plugins
+      - files:/usr/src/redmine/files
       - ./wait-for-plugins.sh:/wait-for-plugins:rw
       - ./configuration.yml:/usr/src/redmine/config/configuration.yml
-      - ./volume-redmine/var/log/redmine/:/usr/src/redmine/log/
+      - /var/log/redmine/:/usr/src/redmine/log/
     extra_hosts:
       - "smtpserver:${SMTP_SERVER}"
     entrypoint: /wait-for-plugins
@@ -48,6 +36,7 @@ services:
 
   tool:
     build: .
+    privileged: true
     volumes:
       - plugins:/redmine/plugins
       - files:/redmine/files
